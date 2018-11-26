@@ -30,7 +30,7 @@ class App extends Component {
     const parameters = {
       client_id: "B4IN5VTJDERKJIKLS1ZKJIGQU5SN3LGUMPMX2RC441DGQHPT",
       client_secret: "RYTDIWIJEMFFAYTZG5CHPRGMGXFOSO3ZG21AEHAKCWV0SSZB",
-      query: "coffee",
+      query: "food",
       ll: "47.658941, -122.312862",
       v: "20182507",
       limit: 6
@@ -57,9 +57,16 @@ class App extends Component {
       center: { lat: 47.658941, lng: -122.312862 },
       zoom: 14
     });
-
+    //Make infowWindow
+    const infowindow = new window.google.maps.InfoWindow({
+      maxWidth: 175
+    });
     //Looping over the venues to create a marker for each place and display them dynamically
     this.state.venues.forEach(place => {
+      //Create the content for the InfoWindow
+      let contentString = `<div class="infowindow-container"><h3>${
+        place.venue.name
+      }</h3><p>${place.venue.location.address}</p></div>`;
       const marker = new window.google.maps.Marker({
         position: {
           lat: place.venue.location.lat,
@@ -68,6 +75,11 @@ class App extends Component {
         map: map,
         title: place.venue.name,
         animation: window.google.maps.Animation.DROP
+      });
+      //Add a click event to the marker to display the InfoWindow
+      marker.addListener("click", () => {
+        infowindow.setContent(contentString);
+        infowindow.open(map, marker);
       });
     });
   };
