@@ -4,13 +4,14 @@ import "./App.css";
 import axios from "axios";
 
 class App extends Component {
-  state: {
+  state = {
     venues: []
   };
+
   componentDidMount() {
     this.getVenues();
-    this.renderMap();
   }
+
   renderMap = () => {
     //Call the loadAPIScript function with the script url containing the API key
     loadAPIScript(
@@ -21,38 +22,56 @@ class App extends Component {
   /*
    * The getVenues makes an API request with parameters to fetch data
    * from foursquare using axios. Then it sets the venues state to the
-   * fetched data. We are searching for food recomendations in Duba
+   * fetched data. We are searching for coffee recomendations in
+   *  University Distract, Seattle
    */
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
-    const params = {
+    const parameters = {
       client_id: "B4IN5VTJDERKJIKLS1ZKJIGQU5SN3LGUMPMX2RC441DGQHPT",
       client_secret: "RYTDIWIJEMFFAYTZG5CHPRGMGXFOSO3ZG21AEHAKCWV0SSZB",
-      v: "20180323",
-      query: "food",
-      near: "Duba, SA",
+      query: "coffee",
+      ll: "47.658941, -122.312862",
+      v: "20182507",
       limit: 6
     };
+
     axios
-      .get(endPoint + new URLSearchParams(params))
-      .then(res => {
-        let results = res.data.response.groups[0].items;
-        this.setState({ vanues: results });
-        console.log(results);
+      .get(endPoint + new URLSearchParams(parameters))
+      .then(response => {
+        this.setState(
+          {
+            venues: response.data.response.groups[0].items
+          },
+          this.renderMap()
+        );
       })
       .catch(error => {
         console.log(error);
       });
   };
+
   initMap = () => {
+    // Create the map
     const map = new window.google.maps.Map(document.getElementById("map"), {
-      center: {
-        lat: 27.3457,
-        lng: 35.7243
-      },
-      zoom: 12
+      center: { lat: 47.658941, lng: -122.312862 },
+      zoom: 14
+    });
+
+    //Looping over the venues to create a marker for each place and display them dynamically
+    this.state.venues.forEach(place => {
+      const marker = new window.google.maps.Marker({
+        position: {
+          lat: place.venue.location.lat,
+          lng: place.venue.location.lng
+        },
+        map: map,
+        title: place.venue.name,
+        animation: window.google.maps.Animation.DROP
+      });
     });
   };
+
   render() {
     return (
       <main>
