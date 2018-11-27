@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
+import SideMenu from "./SideMenu";
 //axios is a promise based HTTP request library similar to fetch API
 import axios from "axios";
 
 class App extends Component {
   state = {
-    venues: []
+    venues: [],
+    markers: []
   };
 
   componentDidMount() {
@@ -76,6 +78,7 @@ class App extends Component {
         title: place.venue.name,
         animation: window.google.maps.Animation.DROP
       });
+      this.state.markers.push(marker);
       //Add a click event to the marker to display the InfoWindow
       marker.addListener("click", () => {
         infowindow.setContent(contentString);
@@ -86,9 +89,12 @@ class App extends Component {
 
   render() {
     return (
+      <div className="container">
+      <SideMenu />
       <main>
         <div id="map" />
       </main>
+      </div>
     );
   }
 }
