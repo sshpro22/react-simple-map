@@ -11,7 +11,7 @@ class SideMenu extends Component {
     const venues = this.props.venues;
     return (
       <Menu width={"25%"} isOpen noOverlay>
-        <Search />
+        <Search updateQuery={this.props.updateQuery}/>
         <ul>
           {venues.map(place => (
             <li id="home" key={place.venue.id} className="menu-item">

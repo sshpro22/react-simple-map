@@ -8,8 +8,8 @@ class Search extends Component {
   render() {
     return (
       <form>
-        <input className="form-input" type="text" />
-        <button className="btn">Filter</button>
+        <input className="form-input" type="text" placeholder="Filter results"
+              onChange={event => this.props.updateQuery(event.target.value)} />
       </form>
     );
   }

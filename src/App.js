@@ -3,17 +3,23 @@ import "./App.css";
 import SideMenu from "./SideMenu";
 //axios is a promise based HTTP request library similar to fetch API
 import axios from "axios";
+//the escapeRegExp to escape any RegExp charactor in the query
+import escapeRegExp from "escape-string-regexp";
 
 class App extends Component {
   state = {
     venues: [],
-    markers: []
+    markers: [],
+    query: ""
   };
 
   componentDidMount() {
     this.getVenues();
   }
-
+  //update the query onChange
+  updateQuery = query => {
+    this.setState({ query: query.trim() });
+  };
   renderMap = () => {
     //Call the loadAPIScript function with the script url containing the API key
     loadAPIScript(
@@ -88,12 +94,25 @@ class App extends Component {
   };
 
   render() {
+    const query = this.state.query;
+    let showingPlaces;
+    if (query) {
+      //create a RegExp and use the escapeRegExp to escape any RegExp charactor in the query
+      const match = new RegExp(escapeRegExp(query), "i");
+      console.log("Venue value: ", this.state.venues);
+      showingPlaces = this.state.venues.filter(place =>
+        match.test(place.venue.name)
+      );
+    } else {
+      showingPlaces = this.state.venues;
+    }
+    console.log('showingPlaces: ', showingPlaces);
     return (
       <div className="container">
-      <SideMenu venues={this.state.venues}/>
-      <main>
-        <div id="map" />
-      </main>
+        <SideMenu venues={showingPlaces} updateQuery={this.updateQuery} />
+        <main>
+          <div id="map" />
+        </main>
       </div>
     );
   }
