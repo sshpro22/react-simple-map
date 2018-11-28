@@ -1,28 +1,23 @@
 import React, { Component } from "react";
 import { slide as Menu } from "react-burger-menu";
 import "./SideMenu.css";
+import Search from "./Search";
 class SideMenu extends Component {
   showSettings(event) {
     event.preventDefault();
   }
 
   render() {
+    const venues = this.props.venues;
     return (
-      <Menu width={ '25%' }>
-        <form>
-          <input className="form-input" type="text" />
-          <button className="btn">Filter</button>
-        </form>
+      <Menu width={"25%"} isOpen noOverlay>
+        <Search />
         <ul>
-          <li id="home" className="menu-item">
-            Home
-          </li>
-          <li id="about" className="menu-item">
-            About
-          </li>
-          <li id="contact" className="menu-item">
-            Contact
-          </li>
+          {venues.map(place => (
+            <li id="home" key={place.venue.id} className="menu-item">
+              {place.venue.name}
+            </li>
+          ))}
         </ul>
       </Menu>
     );

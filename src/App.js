@@ -90,7 +90,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-      <SideMenu />
+      <SideMenu venues={this.state.venues}/>
       <main>
         <div id="map" />
       </main>
