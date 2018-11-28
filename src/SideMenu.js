@@ -9,6 +9,7 @@ class SideMenu extends Component {
 
   render() {
     const venues = this.props.venues;
+    console.log(venues)
     return (
       <Menu width={"25%"} isOpen noOverlay>
         <Search updateQuery={this.props.updateQuery}/>

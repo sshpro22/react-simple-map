@@ -10,6 +10,7 @@ class App extends Component {
   state = {
     venues: [],
     markers: [],
+    showingPlaces: [],
     query: ""
   };
 
@@ -19,7 +20,34 @@ class App extends Component {
   //update the query onChange
   updateQuery = query => {
     this.setState({ query: query.trim() });
+    let filteredList;
+    let hiddenMarkers;
+    this.state.markers.map(marker => marker.setVisible(true));
+    if (query) {
+      //create a RegExp and use the escapeRegExp to escape any RegExp charactor in the query
+      const match = new RegExp(escapeRegExp(query), "i");
+      console.log("Venue value: ", this.state.venues);
+      //create an array of all the matches
+      filteredList = this.state.venues.filter(place =>
+        match.test(place.venue.name)
+      );
+      //Set the showingPlaces state to the filltered array
+      this.setState({ showingPlaces: filteredList });
+      //Create an array of all the markers that need to be hidden
+      hiddenMarkers = this.state.markers.filter(marker =>
+        filteredList.every(myVenue => myVenue.venue.name !== marker.title)
+      );
+      //Hide the markers
+      hiddenMarkers.map(marker => marker.setVisible(false));
+    } else {
+      this.state.markers.forEach(marker => {
+        marker.setVisible(true);
+      });
+      this.setState({ showingPlaces: this.state.venues });
+    }
+    console.log("showingPlaces: ", this.showingPlaces);
   };
+
   renderMap = () => {
     //Call the loadAPIScript function with the script url containing the API key
     loadAPIScript(
@@ -49,7 +77,8 @@ class App extends Component {
       .then(response => {
         this.setState(
           {
-            venues: response.data.response.groups[0].items
+            venues: response.data.response.groups[0].items,
+            showingPlaces: response.data.response.groups[0].items
           },
           this.renderMap()
         );
@@ -94,22 +123,12 @@ class App extends Component {
   };
 
   render() {
-    const query = this.state.query;
-    let showingPlaces;
-    if (query) {
-      //create a RegExp and use the escapeRegExp to escape any RegExp charactor in the query
-      const match = new RegExp(escapeRegExp(query), "i");
-      console.log("Venue value: ", this.state.venues);
-      showingPlaces = this.state.venues.filter(place =>
-        match.test(place.venue.name)
-      );
-    } else {
-      showingPlaces = this.state.venues;
-    }
-    console.log('showingPlaces: ', showingPlaces);
     return (
       <div className="container">
-        <SideMenu venues={showingPlaces} updateQuery={this.updateQuery} />
+        <SideMenu
+          venues={this.state.showingPlaces}
+          updateQuery={this.updateQuery}
+        />
         <main>
           <div id="map" />
         </main>
