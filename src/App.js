@@ -135,6 +135,7 @@ class App extends Component {
         <SideMenu
           venues={this.state.showingPlaces}
           updateQuery={this.updateQuery}
+          markers={this.state.markers}
         />
         <main>
           <div id="map" />
