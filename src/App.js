@@ -92,7 +92,7 @@ class App extends Component {
     // Create the map
     const map = new window.google.maps.Map(document.getElementById("map"), {
       center: { lat: 47.658941, lng: -122.312862 },
-      zoom: 14
+      zoom: 16
     });
     //Make infowWindow
     const infowindow = new window.google.maps.InfoWindow({
@@ -114,10 +114,17 @@ class App extends Component {
         animation: window.google.maps.Animation.DROP
       });
       this.state.markers.push(marker);
+      function toggleBounce(marker) {
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+          marker.setAnimation(null);
+        }, 400);
+      }
       //Add a click event to the marker to display the InfoWindow
       marker.addListener("click", () => {
         infowindow.setContent(contentString);
         infowindow.open(map, marker);
+        toggleBounce(marker);
       });
     });
   };
