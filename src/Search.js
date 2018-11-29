@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 
 class Search extends Component {
-  showSettings(event) {
-    event.preventDefault();
-  }
 
   render() {
     return (
-      <form>
-        <input className="form-input" type="text" placeholder="Filter results"
+      <div className="Filter-container">
+        <input className="filter-input" type="text" placeholder="Filter"
               onChange={event => this.props.updateQuery(event.target.value)} />
-      </form>
+      </div>
     );
   }
 }

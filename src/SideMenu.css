@@ -28,22 +28,46 @@
   background: #373a47;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
+  list-style: none;
+
 }
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
   fill: #373a47;
 }
-
+/* Style the input field */
+.Filter-container {
+  width:100%;
+}
+.filter-input {
+  width: 100%;
+  padding:0 0.5rem;
+  font-size: 1rem;
+  height: 2rem;
+  border:none;
+  border-radius: 3px;
+}
 /* Wrapper for item list */
 .bm-item-list {
   color: #b8b7ad;
   padding: 0.8em;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 /* Individual item */
 .bm-item {
   display: inline-block;
+  list-style: none;
+  padding-left: 0.5rem;
+}
+.menu-item {
+  margin:0 0 1.5rem 0;
+  cursor: pointer;
+}
+.menu-item:hover {
+  color: #ff0000  ;
 }
 
 /* Styling of overlay */

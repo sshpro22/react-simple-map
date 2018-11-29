@@ -19,7 +19,7 @@ class SideMenu extends Component {
     const venues = this.props.venues;
     console.log(venues);
     return (
-      <Menu width={"25%"} isOpen noOverlay>
+      <Menu width={310} isOpen noOverlay>
         <Search updateQuery={this.props.updateQuery} />
         <ul>
           {venues.map(place => (
