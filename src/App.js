@@ -137,6 +137,7 @@ class App extends Component {
           updateQuery={this.updateQuery}
           markers={this.state.markers}
         />
+        <header><h1>University Distract, Seatlle</h1></header>
         <main>
           <div id="map" />
         </main>

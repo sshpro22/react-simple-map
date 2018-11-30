@@ -9,3 +9,19 @@ html, body {
   padding: 0;
   font-family: Arial "Helvetica Neue", Helvetica, sans-serif;
 }
+header {
+  width:100%;
+  background-color: #b4bad2;
+  text-align: center;
+}
+h1 {
+  margin: 0;
+  padding: 2rem 5.5rem;
+  font-size: 1.2rem;
+  color: #4e4a46;
+}
+@media screen and (min-width:500px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
