@@ -3,6 +3,9 @@ import { slide as Menu } from "react-burger-menu";
 import "./SideMenu.css";
 import Search from "./Search";
 class SideMenu extends Component {
+  state = {
+    menuOpen: false
+  };
   /*
    * openMarker functio triggers the click event on marker when
    * a list item is clicked
@@ -14,12 +17,29 @@ class SideMenu extends Component {
       }
     });
   };
+  /*
+   * This keeps the state in sync with the opening/closing of the menu
+   * via the default means, e.g. clicking the X, pressing the ESC key etc.
+   */
+  handleStateChange(state) {
+    this.setState({ menuOpen: state.isOpen });
+  }
+
+  // This is used to close the menu, e.g. when a user clicks a menu item
+  closeMenu() {
+    this.setState({ menuOpen: false });
+  }
 
   render() {
     const venues = this.props.venues;
     console.log(venues);
     return (
-      <Menu width={310} isOpen noOverlay>
+      <Menu
+        width={310}
+        isOpen={this.state.menuOpen}
+        onStateChange={state => this.handleStateChange(state)}
+        noOverlay
+      >
         <Search updateQuery={this.props.updateQuery} />
         <ul>
           {venues.map(place => (
@@ -27,7 +47,10 @@ class SideMenu extends Component {
               id="home"
               key={place.venue.id}
               className="menu-item"
-              onClick={() => this.openMarker(place.venue.name)}
+              onClick={() => {
+                this.openMarker(place.venue.name);
+                this.closeMenu();
+              }}
             >
               {place.venue.name}
             </li>
