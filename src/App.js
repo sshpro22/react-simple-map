@@ -103,7 +103,9 @@ class App extends Component {
       //Create the content for the InfoWindow
       let contentString = `<div class="infowindow-container"><h3>${
         place.venue.name
-      }</h3><p>${place.venue.location.address}</p></div>`;
+      }</h3><p>${place.venue.categories[0].name}</p><p>${
+        place.venue.location.address
+      }</p></div>`;
       const marker = new window.google.maps.Marker({
         position: {
           lat: place.venue.location.lat,
@@ -137,9 +139,11 @@ class App extends Component {
           updateQuery={this.updateQuery}
           markers={this.state.markers}
         />
-        <header><h1>University Distract, Seatlle</h1></header>
+        <header>
+          <h1>University Distract, Seatlle</h1>
+        </header>
         <main>
-          <div id="map" aria-label="Map role" role="application"/>
+          <div id="map" aria-label="Map role" role="application" />
         </main>
       </div>
     );
