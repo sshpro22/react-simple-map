@@ -139,7 +139,7 @@ class App extends Component {
         />
         <header><h1>University Distract, Seatlle</h1></header>
         <main>
-          <div id="map" />
+          <div id="map" aria-label="Map role" role="application"/>
         </main>
       </div>
     );

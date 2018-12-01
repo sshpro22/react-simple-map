@@ -34,7 +34,7 @@ class SideMenu extends Component {
     const venues = this.props.venues;
     console.log(venues);
     return (
-      <Menu
+      <Menu aria-label="Side Menu"
         width={310}
         isOpen={this.state.menuOpen}
         onStateChange={state => this.handleStateChange(state)}
@@ -45,6 +45,8 @@ class SideMenu extends Component {
           {venues.map(place => (
             <li
               id="home"
+              aria-label={place.venue.name}
+              tabIndex="0"
               key={place.venue.id}
               className="menu-item"
               onClick={() => {
