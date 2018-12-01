@@ -85,6 +85,7 @@ class App extends Component {
       })
       .catch(error => {
         console.log(error);
+        alert(`Oh no, there was a problem with fetching data from Foursquare`)
       });
   };
 
@@ -163,6 +164,9 @@ function loadAPIScript(url) {
   script.async = true;
   script.defer = true;
   index.parentNode.insertBefore(script, index);
+  script.onerror = function() {
+    alert("Sorry, there was an error loading the map!");
+  };
 }
 
 export default App;
