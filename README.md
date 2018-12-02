@@ -1,7 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 # Neighborhood Map Project
-
+ ![Screenshot](./src/images/snippet.PNG "Screenshot")
 ## Project Overview
 
 I created a single page application featuring a map showing some nice restaurants in the University District, Seattle, a Neighborhood I used to live in. I added functionality to this map including highlighted locations, third-party data about those locations and various ways to browse the content.
