@@ -141,7 +141,7 @@ class App extends Component {
           markers={this.state.markers}
         />
         <header>
-          <h1>University Distract, Seatlle</h1>
+          <h1>University District, Seatlle</h1>
         </header>
         <main>
           <div id="map" aria-label="Map role" role="application" />
