@@ -1,14 +1,10 @@
-import React, { Component } from "react";
-
-class Search extends Component {
-
-  render() {
+import React from "react";
+const Search =  props => {
     return (
       <div className="Filter-container" aria-label="Filter Bar">
         <input className="filter-input" type="text" placeholder="Filter"
-              onChange={event => this.props.updateQuery(event.target.value)} />
+              onChange={event => props.updateQuery(event.target.value)} />
       </div>
     );
-  }
 }
 export default Search;
